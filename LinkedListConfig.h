@@ -2,10 +2,11 @@
 	#define LINKED_LIST_CONFIG_H
 
 /*
-	Date: April 28, 2011
+	Developer: Benjamin Michaud
+	Date: July 6, 2020
 	File Name: LinkedListConfig.h
-	Version: 1.04
-	IDE: Visual Studio 2010 Professional
+	Version: 1.05
+	IDE: Visual Studio 2019
 	Compiler: C89
 
 	Description:  This file contains all the necessary definitions
@@ -18,9 +19,11 @@
 	a Linked List.
 */
 #define USING_LINKED_LIST_ADD_METHOD					1
-#define USING_LINKED_LIST_REMOVE_NODE_METHOD				1
-#define USING_LINKED_LIST_DELETE_NODE_METHOD				1
-#define USING_LINKED_LIST_DELETE_ALL_METHOD				1
+#define USING_LINKED_LIST_ADD_LAST_METHOD				1
+#define USING_LINKED_LIST_ADD_FIRST_METHOD				0
+#define USING_LINKED_LIST_REMOVE_NODE_METHOD			0
+#define USING_LINKED_LIST_DELETE_NODE_METHOD			1
+#define USING_LINKED_LIST_DELETE_ALL_METHOD				0
 #define USING_LINKED_LIST_GET_DATA_METHOD				1
 #define USING_LINKED_LIST_CONTAINS_METHOD				1
 #define USING_LINKED_LIST_GET_SIZE_METHOD				1
@@ -29,7 +32,7 @@
 	Linked List sorting functionality and methods.
 */
 // The below define must be 1 if any Linked List sorting is used.
-#define USING_LINKED_LIST_SORTING					1
+#define USING_LINKED_LIST_SORTING						0
 
 /*
 	*Define the below as 1 if each LINKED_LIST is to store a custom
@@ -44,61 +47,61 @@
 	The user can first free the persons name, then the entire person
 	object so no memory leaks are created.
 */
-#define USING_LINKED_LIST_DEPENDENT_FREE_METHOD				1
+#define USING_LINKED_LIST_DEPENDENT_FREE_METHOD			1
 
 /*
 	If USING_SORT_LINKED_LIST_METHOD is defined as 1, then so must
 	USING_ADD_TO_SORTED_LINKED_LIST_METHOD because LinkedListSort()
 	makes multiple calls to LinkedListAddToSortedLinkedList().
 */
-#define USING_SORT_LINKED_LIST_METHOD					1
-#define USING_ADD_TO_SORTED_LINKED_LIST_METHOD				1
+#define USING_SORT_LINKED_LIST_METHOD					0
+#define USING_ADD_TO_SORTED_LINKED_LIST_METHOD			0
 
 /*
 	Linked List Iterator functionality and methods.
 */
 // The below define must be 1 if any Linked List Iterator methods are used.
-#define USING_LINKED_LIST_ITERATOR					1
+#define USING_LINKED_LIST_ITERATOR						0
 
-#define USING_ITERATOR_HAS_NEXT_METHOD					1
-#define USING_ITERATOR_REMOVE_METHOD					1
-#define USING_ITERATOR_DELETE_METHOD					1
-#define USING_ITERATOR_GET_DATA_METHOD					1
-#define USING_ITERATOR_NEXT_METHOD					1
-#define USING_ITERATOR_RESET_METHOD					1
-#define USING_ITERATOR_HAS_BACK_METHOD					1
-#define USING_ITERATOR_BACK_METHOD					1
-#define USING_ITERATOR_GET_INDEX_METHOD					1
+#define USING_ITERATOR_HAS_NEXT_METHOD					0
+#define USING_ITERATOR_REMOVE_METHOD					0
+#define USING_ITERATOR_DELETE_METHOD					0
+#define USING_ITERATOR_GET_DATA_METHOD					0
+#define USING_ITERATOR_NEXT_METHOD						0
+#define USING_ITERATOR_RESET_METHOD						0
+#define USING_ITERATOR_HAS_BACK_METHOD					0
+#define USING_ITERATOR_BACK_METHOD						0
+#define USING_ITERATOR_GET_INDEX_METHOD					0
 
 /*
 	Linked List size in bytes method.
 */
-#define USING_LINKED_LIST_GET_SIZE_IN_BYTES_METHOD			1
+#define USING_LINKED_LIST_GET_SIZE_IN_BYTES_METHOD		0
 
 /*
 	*If USING_LINKED_LIST_GET_LIBRARY_VERSION is set to 1 then
 	LinkedListGetLibraryVersion() is available.
 */
-#define USING_LINKED_LIST_GET_LIBRARY_VERSION				1
+#define USING_LINKED_LIST_GET_LIBRARY_VERSION			0
 
 /**
 	*Set LINKED_LIST_SAFE_MODE to 1 to enable the portions of code
 	inside the LINKED_LIST Library that check to make sure all passed
 	in parameters are of a valid nature.
 */
-#define LINKED_LIST_SAFE_MODE						1
+#define LINKED_LIST_SAFE_MODE							1
 
 /**
 	*This defines what method the LinkedList library will use to 
 	allocate memory and deallocated.  This allows the LinkedList 
 	library to be integrated into an OS.
 */
-#define ListMemAlloc(Mem)						malloc(Mem)
+#define ListMemAlloc(Mem)								malloc(Mem)
 
 /**
 	*The method used for freeing up memory.
 */
-#define ListMemDealloc(Mem)						free(Mem)
+#define ListMemDealloc(Mem)								free(Mem)
 
 /**
 	*Define USE_MALLOC as 1 to enable the stdlib.h file included

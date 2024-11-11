@@ -2,10 +2,11 @@
 	#define LINKED_LIST_OBJECT_H
 
 /*
-	Date: April 28, 2011
-	File Name: LinkedListObject.h
-	Version: 1.04
-	IDE: Visual Studio 2010 Professional
+	Developer: Benjamin Michaud
+	Date: July 6, 2020
+	File Name: LinkedList.h
+	Version: 1.05
+	IDE: Visual Studio 2019
 	Compiler: C89
 
 	Description: This file contains the definition of the LINKED_LIST
@@ -14,7 +15,7 @@
 
 */
 
-#include "GenericTypeDefs.h"
+#include "GenericTypes.h"
 #include "LinkedListConfig.h"
 
 /*

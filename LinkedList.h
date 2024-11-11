@@ -1,10 +1,11 @@
 #ifndef LINKED_LIST_H
 	#define LINKED_LIST_H
 /*
-	Date: April 28, 2011
+	Developer: Benjamin Michaud
+	Date: July 6, 2020
 	File Name: LinkedList.h
-	Version: 1.04
-	IDE: Visual Studio 2010 Professional
+	Version: 1.05
+	IDE: Visual Studio 2019
 	Compiler: C89
 
 	Description:
@@ -16,31 +17,37 @@
 
 /*! \mainpage Linked List Library
  *  \brief This is a Library written in C for manipulating a Linked List Data Structure.
- *  \author brodie
- *  \version 1.04
- *  \date   April 28, 2011
+ *  \author Benjamin Michaud
+ *  \version 1.05
+ *  \date   July 6, 2020
  */
 
-#include "GenericTypeDefs.h"
+#include "GenericTypes.h"
 #include "LinkedListObject.h"
 #include "LinkedListConfig.h"
 
 /*
-	v1.1 Future Release Notes:
-	- Methods to merge 2 LINKED_LIST's.
-	- Methods to partition a LINKED_LIST. (Based on either the Iterator or an Index)
-	- Method to sort a LINKED_LIST when merging a new LINKED_LIST.
-	- Method to add a new LINKED_LIST_NODE at a specified Index.
-	- Methods for returning the min and max value held in the LINKED_LIST.
-	- Method for peeking the next LINKED_LIST_NODE based on the current Index of the Iterator. (use -,0,+)
-	- Method for peeking the previous LINKED_LIST_NODE based on the current Index of the Iterator.
-	- Method for the Iterator to iterate to the next occurence.
-	- Method for the Iterator to iterate to the previous occurence.
-	- Method for the Iterator to delete the current node it's at.
-	- Method for getting the number of nodes left infront of the Iterator, backwards too.
-	- Method for sorting the list in ascending or descending order.
-	- Method for getting the index of the last occurence of data.
-	- Methods for List Dump and Restore.
+	July 6, 2020 v1.05
+	  - LinkedListAddFirst() method was tested and confirmed.
+
+	July 2, 2020 v1.04.01
+	  - LinkedListAddFirst() method was added but not yet tested.
+
+	Future Anticipated Release Notes:
+	  - Methods to merge 2 LINKED_LIST's.
+	  - Methods to partition a LINKED_LIST. (Based on either the Iterator or an Index)
+	  - Method to sort a LINKED_LIST when merging a new LINKED_LIST.
+	  - Method to add a new LINKED_LIST_NODE at a specified Index.
+	  - Methods for returning the min and max value held in the LINKED_LIST.
+	  - Method for peeking the next LINKED_LIST_NODE based on the current Index of the Iterator. (use -,0,+)
+	  - Method for peeking the previous LINKED_LIST_NODE based on the current Index of the Iterator.
+	  - Method for the Iterator to iterate to the next occurence.
+	  - Method for the Iterator to iterate to the previous occurence.
+	  - Method for the Iterator to delete the current node it's at.
+	  - Method for getting the number of nodes left infront of the Iterator, backwards too.
+	  - Method for sorting the list in ascending or descending order.
+	  - Method for getting the index of the last occurence of data.
+	  - Methods for List Dump and Restore.
 */
 
 
@@ -86,7 +93,38 @@
 LINKED_LIST *CreateLinkedList(LINKED_LIST *LinkedListToCreate, INT32 (*CompareTo)(const void *Data1, const void *Data2), void (*CustomFreeMethod)(void *Data));
 
 /*
-	Function: BOOL LinkedListAdd(LINKED_LIST *LinkedList, const void *Data)
+	Function: BOOL LinkedListAddFirst(LINKED_LIST *LinkedList, const void *Data)
+
+	Parameters:
+		LINKED_LIST *LinkedList - The LINKED_LIST that will have the data added to it.
+
+		const void *Data - The data that will be stored at the new node in the LINKED_LIST.
+
+	Returns:
+		BOOL - Returns TRUE if the data was added successfully.  FALSE otherwise.
+
+	Description: Adds a new item to the beginning of a LINKED_LIST.  This method calls MemAlloc() to
+		create a new LINKED_LIST_NODE.
+
+	Notes: USING_LINKED_LIST_ADD_FIRST_METHOD must be defined as 1 in LinkedListConfig.h to
+		use this method.
+*/
+/**
+		* @brief Adds a new item to the beginning of a LINKED_LIST at the beginning (index 1).
+		* @param *LinkedList - A pointer to an already allocate LINKED_LIST.
+		* @param *Data - The data that will be added to the LINKED_LIST.
+		* @return BOOL - TRUE if the operation was successfull.  FALSE otherwise.
+		* @note USING_LINKED_LIST_ADD_FIRST_METHOD must be defined as 1 in LinkedListConfig.h to
+		use this method.  This method will call MemAlloc() to create a new LINKED_LIST_NODE.
+		* @sa MemAlloc()
+		* @since v1.04.01
+*/
+#if	(USING_LINKED_LIST_ADD_FIRST_METHOD == 1)
+	BOOL LinkedListAddFirst(LINKED_LIST* LinkedList, const void* Data);
+#endif // end of #if	(USING_LINKED_LIST_ADD_FIRST_METHOD == 1)
+
+/*
+	Function: BOOL LinkedListAddLast(LINKED_LIST *LinkedList, const void *Data)
 
 	Parameters: 
 		LINKED_LIST *LinkedList - The LINKED_LIST that will have the data added to it.
@@ -96,26 +134,28 @@ LINKED_LIST *CreateLinkedList(LINKED_LIST *LinkedListToCreate, INT32 (*CompareTo
 	Returns:
 		BOOL - Returns TRUE if the data was added successfully.  FALSE otherwise.
 
-	Description: Adds a new item to the LINKED_LIST.  This method calls MemAlloc() to
-		create a new LINKED_LIST_NODE.
+	Description: Adds a new item to the LINKED_LIST end of the LINKED_LIST.  This method calls
+		MemAlloc() to create a new LINKED_LIST_NODE.
 
-	Notes: USING_LINKED_LIST_ADD_METHOD must be defined as 1 in LinkedListConfig.h to
-		use this method.
+	Notes: USING_LINKED_LIST_ADD_METHOD or USING_LINKED_LIST_ADD_LAST_METHOD must be defined 
+		as 1 in LinkedListConfig.h to use this method.
 */
 /**
-		* @brief Adds a new item to a LINKED_LIST.
-		* @param *LinkedList - A pointer to an already allocate LINKED_LIST or a NULL LINKED_LIST 
-		pointer to create a LINKED_LIST from MemAlloc().
+		* @brief Adds a new item to the end of a LINKED_LIST.
+		* @param *LinkedList - A pointer to an already allocate LINKED_LIST.
 		* @param *Data - The data that will be added to the LINKED_LIST.
 		* @return BOOL - TRUE if the operation was successfull.  FALSE otherwise.
-		* @note USING_LINKED_LIST_ADD_METHOD must be defined as 1 in LinkedListConfig.h to
-		use this method.  This method will call MemAlloc() to create a new LINKED_LIST_NODE.
+		* @note USING_LINKED_LIST_ADD_METHOD or USING_LINKED_LIST_ADD_LAST_METHOD must 
+		* be defined as 1 in LinkedListConfig.h to use this method.  This method will 
+		* call MemAlloc() to create a new LINKED_LIST_NODE.
 		* @sa MemAlloc()
 		* @since v1.00
 */
-#if (USING_LINKED_LIST_ADD_METHOD == 1)
+#if (USING_LINKED_LIST_ADD_METHOD == 1 || USING_LINKED_LIST_ADD_LAST_METHOD == 1)
+	#define LinkedListAdd(LinkedList, Data)									LinkedListAddLast(LinkedList, Data)
+
 	// Tries to add the data specified by void *Data to the end of the LINKED_LIST.
-	BOOL LinkedListAdd(LINKED_LIST *LinkedList, const void *Data);
+	BOOL LinkedListAddLast(LINKED_LIST *LinkedList, const void *Data);
 #endif // end of USING_LINKED_LIST_ADD_METHOD
 
 /*

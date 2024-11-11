@@ -1,12 +1,13 @@
 /*
-	Date: April 28, 2011
+	Developer: Benjamin Michaud
+	Date: July 6, 2020
 	File Name: LinkedList.c
-	Version: 1.04
-	IDE: Visual Studio 2010 Professional
+	Version: 1.05
+	IDE: Visual Studio 2019
 	Compiler: C89
 
 	Description:  This file contains all the necessary code
-	for manipulating the LINKED_LIST data structure.  An explination
+	for manipulating the LINKED_LIST data structure.  An explanation
 	of each function can be found in LinkedList.h.
 
 */
@@ -59,9 +60,61 @@ LINKED_LIST *CreateLinkedList(LINKED_LIST *LinkedListToCreate, INT32 (*CompareTo
 	return (LINKED_LIST*)NewLinkedList;
 }
 
-#if (USING_LINKED_LIST_ADD_METHOD == 1)
+#if	(USING_LINKED_LIST_ADD_FIRST_METHOD == 1)
+	BOOL LinkedListAddFirst(LINKED_LIST* LinkedList, const void* Data)
+	{
+		LINKED_LIST_NODE* TempNode;
+
+		#if (LINKED_LIST_SAFE_MODE == 1)
+			if (LinkedListIsNull(LinkedList))
+				return FALSE;
+		#endif // end of LINKED_LIST_SAFE_MODE
+
+		// allocate room for the LINKED_LIST_NODE
+		if ((TempNode = ListMemAlloc(sizeof(LINKED_LIST_NODE))) == (LINKED_LIST_NODE*)NULL)
+		{
+			return FALSE;
+		}
+
+		// add the data
+		TempNode->Data = (void*)Data;
+
+		// is the list empty?
+		if (LinkedList->Head == (LINKED_LIST_NODE*)NULL)
+		{
+			LinkedList->Tail = LinkedList->Head = (LINKED_LIST_NODE*)TempNode;
+
+			TempNode->Next = TempNode->Previous = (LINKED_LIST_NODE*)NULL;
+		}
+		else
+		{
+			// now update the heads, and the next/previous
+			LinkedList->Head->Previous = TempNode;
+			TempNode->Next = LinkedList->Head;
+
+			// now we can break the link from the head
+			LinkedList->Head = TempNode;
+
+			// since we're node number 1, our previous is non-existent
+			TempNode->Previous = (LINKED_LIST_NODE*)NULL;
+
+			#if (USING_LINKED_LIST_ITERATOR == 1)
+				// increment the iterator position if it was active
+				if (LinkedList->Iterator.Position != 0)
+					LinkedList->Iterator.Position++;
+			#endif // end of #if (USING_LINKED_LIST_ITERATOR == 1)
+		}
+
+		// now we will increment the size
+		LinkedList->Size++;
+
+		return TRUE;
+	}
+#endif // end of #if (USING_LINKED_LIST_ADD_FIRST_METHOD == 1)
+
+#if (USING_LINKED_LIST_ADD_METHOD == 1 || USING_LINKED_LIST_ADD_LAST_METHOD == 1)
 	// Tries to add the data specified by void *Data to the end of the LINKED_LIST.
-	BOOL LinkedListAdd(LINKED_LIST *LinkedList, const void *Data)
+	BOOL LinkedListAddLast(LINKED_LIST *LinkedList, const void *Data)
 	{
 		LINKED_LIST_NODE *TempNode;
 
@@ -76,8 +129,6 @@ LINKED_LIST *CreateLinkedList(LINKED_LIST *LinkedListToCreate, INT32 (*CompareTo
 		}
 	
 		TempNode->Data = (void*)Data;
-		TempNode->Next = (LINKED_LIST_NODE*)NULL;
-		TempNode->Previous = (LINKED_LIST_NODE*)NULL;
 	
 		LinkedList->Size++;
 	
@@ -96,16 +147,15 @@ LINKED_LIST *CreateLinkedList(LINKED_LIST *LinkedListToCreate, INT32 (*CompareTo
 	
 		return (BOOL)TRUE;
 	}
-#endif // end of USING_LINKED_LIST_ADD_METHOD
+#endif // end of #if (USING_LINKED_LIST_ADD_METHOD == 1 || USING_LINKED_LIST_ADD_LAST_METHOD == 1)
 
 #if (LINKED_LIST_FREE_METHOD == 1)
-
 	static void LinkedListFreeNodeAndData(LINKED_LIST *LinkedList, LINKED_LIST_NODE *Node)
 	{
-			if(LinkedList->LinkedListFreeMethod)
-				LinkedList->LinkedListFreeMethod((void*)(Node->Data));
+		if(LinkedList->LinkedListFreeMethod)
+			LinkedList->LinkedListFreeMethod((void*)(Node->Data));
 	
-			ListMemDealloc((void*)(Node));
+		ListMemDealloc((void*)(Node));
 	}
 #endif // end of LINKED_LIST_FREE_METHOD
 
@@ -759,11 +809,10 @@ LINKED_LIST *CreateLinkedList(LINKED_LIST *LinkedListToCreate, INT32 (*CompareTo
 
 #if (USING_LINKED_LIST_GET_LIBRARY_VERSION == 1)
 
-	const BYTE LinkedListLibraryVersion[] = {"Linked List Lib v1.04\0"};
+	const BYTE LinkedListLibraryVersion[] = {"1.05\0"};
 
 	const BYTE *LinkedListGetLibraryVersion(void)
 	{
 		return (const BYTE*)LinkedListLibraryVersion;
 	}
-
 #endif // end of USING_LINKED_LIST_GET_LIBRARY_VERSION

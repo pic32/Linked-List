@@ -15,13 +15,6 @@
 		their declaration.
 */
 
-/*! \mainpage Linked List Library
- *  \brief This is a Library written in C for manipulating a Linked List Data Structure.
- *  \author Benjamin Michaud
- *  \version 1.05
- *  \date   July 6, 2020
- */
-
 #include "GenericTypes.h"
 #include "LinkedListObject.h"
 #include "LinkedListConfig.h"

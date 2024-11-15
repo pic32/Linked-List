@@ -3,7 +3,7 @@
                   Generic Type Definitions
 
 ********************************************************************
- FileName:        GenericTypeDefs.h
+ FileName:        GenericTypes.h
  Dependencies:    None
  Processor:       PIC10, PIC12, PIC16, PIC18, PIC24, dsPIC, PIC32
  Compiler:        MPLAB C Compilers for PIC18, PIC24, dsPIC, & PIC32
@@ -46,6 +46,8 @@
 
 #ifndef __GENERIC_TYPE_DEFS_H_
 #define __GENERIC_TYPE_DEFS_H_
+#ifndef GENERIC_TYPES_H
+#define GENERIC_TYPES_H
 
 #ifdef __cplusplus
 extern "C"
@@ -93,6 +95,12 @@ typedef unsigned long int   UINT32;     /* other name for 32-bit integer */
 #if !defined(__18CXX)
 __EXTENSION typedef unsigned long long  UINT64;
 #endif
+
+#ifndef GENERIC_FLOATING_POINT
+    #define GENERIC_FLOATING_POINT
+    typedef double              FLOAT32;
+    typedef long double         FLOAT64;
+#endif // end of #ifndef GENERIC_FLOATING_POINT
 
 typedef union
 {
@@ -556,3 +564,10 @@ typedef union
   }
 #endif
 #endif /* __GENERIC_TYPE_DEFS_H_ */
+#else
+#ifndef GENERIC_FLOATING_POINT
+    #define GENERIC_FLOATING_POINT
+    typedef double              FLOAT32;
+    typedef long double         FLOAT64;
+#endif // end of #ifndef GENERIC_FLOATING_POINT
+#endif // end of #ifndef __GENERIC_TYPE_DEFS_H_

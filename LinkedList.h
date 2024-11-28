@@ -1,5 +1,11 @@
 #ifndef LINKED_LIST_H
 	#define LINKED_LIST_H
+
+/** \file
+ * This is the main interface to the NexShell.
+ * This file contains all the methods to initialize and run the NexShell.
+ */
+
 /*
 	Developer: Benjamin Michaud
 	Date: July 6, 2020
@@ -81,7 +87,7 @@
 		not be allocated, returns a NULL LINKED_LIST pointer.
 		* @note None
 		* @sa MemAlloc()
-		* @since v1.0
+		* @since v1.00
 */
 LINKED_LIST *CreateLinkedList(LINKED_LIST *LinkedListToCreate, INT32 (*CompareTo)(const void *Data1, const void *Data2), void (*CustomFreeMethod)(void *Data));
 
@@ -174,10 +180,10 @@ LINKED_LIST *CreateLinkedList(LINKED_LIST *LinkedListToCreate, INT32 (*CompareTo
 		* @param Index - The 1 based index at which node will be removed.
 		* @return void* - The value at the specified node.  NULL otherwise.
 		* @note USING_LINKED_LIST_REMOVE_NODE_METHOD must be defined as 1 in LinkedListConfigto
-		use this method.h.  This method will call MemDealloc() to delete the LINKED_LIST_NODE.  
+		use this method.h.  This method will call ListMemDealloc() to delete the LINKED_LIST_NODE.  
 		It is the users responsibility to free any memory that the returned void pointer is 
 		pointing to.
-		* @sa MemDealloc()
+		* @sa ListMemDealloc()
 		* @since v1.00
 */
 #if (USING_LINKED_LIST_REMOVE_NODE_METHOD == 1)
@@ -215,7 +221,7 @@ LINKED_LIST *CreateLinkedList(LINKED_LIST *LinkedListToCreate, INT32 (*CompareTo
 		* @note USING_LINKED_LIST_DELETE_NODE_METHOD must be defined at 1 in LinkedListConfig.h to
 		use this method.  If the LINKED_LIST already has a method for deleteing data then this 
 		method will automatically get called.
-		* @sa MemDealloc()
+		* @sa ListMemDealloc()
 		* @since v1.00
 */
 #if (USING_LINKED_LIST_DELETE_NODE_METHOD == 1)
@@ -253,8 +259,8 @@ LINKED_LIST *CreateLinkedList(LINKED_LIST *LinkedListToCreate, INT32 (*CompareTo
 		* @note USING_LINKED_LIST_DELETE_ALL_METHOD must be defined at 1 in LinkedListConfig.h to
 		use this method.  If the LINKED_LIST already has a method for deleteing data then this 
 		method will automatically get called.
-		* @sa MemDealloc()
-		* @since v1.0
+		* @sa ListMemDealloc()
+		* @since v1.00
 */
 #if (USING_LINKED_LIST_DELETE_ALL_METHOD == 1)
 	// Deletes all Nodes inside the LINKED_LIST.

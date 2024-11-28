@@ -2,7 +2,7 @@
 	#define LINKED_LIST_OBJECT_H
 
 /*
-	Developer: Benjamin Michaud
+	Developer: brodie
 	Date: July 6, 2020
 	File Name: LinkedList.h
 	Version: 1.05

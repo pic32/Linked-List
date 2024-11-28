@@ -1,5 +1,5 @@
 /*
-	Developer: Benjamin Michaud
+	Developer: brodie
 	Date: July 6, 2020
 	File Name: LinkedList.c
 	Version: 1.05

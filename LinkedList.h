@@ -2,12 +2,11 @@
 	#define LINKED_LIST_H
 
 /** \file
- * This is the main interface to the NexShell.
- * This file contains all the methods to initialize and run the NexShell.
+ * This file contains all the methods to interact with a \ref LINKED_LIST.
  */
 
 /*
-	Developer: Benjamin Michaud
+	Developer: brodie
 	Date: July 6, 2020
 	File Name: LinkedList.h
 	Version: 1.05
